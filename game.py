@@ -47,6 +47,12 @@ class Game:
         if self.MAX_ROUNDS <= self.Round:
             self.finish_game(player)
         else:
+            pp = player.get_points(self)
+            cp = self.computer_get_points()
+            if pp > (self.MAX_ROUNDS / 2) and pp > cp:
+                self.finish_game(player)
+            if cp > (self.MAX_ROUNDS / 2) and cp > pp:
+                self.finish_game(player)
             self.Round += 1
             player.play_card(self)
 
