@@ -111,7 +111,7 @@ class Player(Game):
                 print("Para iniciar o jogo sem cartas aleatórias é necessário que o número máximo de cartas seja divisivel por 3")
 
     def play_card(self):
-        if self.Round == 1:
+        if self.Round == 1 and not self.cards:
             self.add_cards()
         print(f"\n{bcolors.OKCYAN}Selecione a carta que deseja jogar:{bcolors.ENDC}")
         for i in range(len(self.cards)):
@@ -121,9 +121,11 @@ class Player(Game):
             response = int(response)
             response -= 1
         except:
-            print(f"{bcolors.WARNING}Você deve digitar o número da carta que deseja jogar!{bcolors.ENDC}")
+            print(f"\n{bcolors.WARNING}Você deve digitar o número da carta que deseja jogar!{bcolors.ENDC}")
             self.play_card()
-
+        if response < 0 or response > len(self.cards) - 1:
+            print(f"\n{bcolors.WARNING}O valor digitado não existe!{bcolors.ENDC}")
+            self.play_card()
         playcard = self.cards[response]
         self.cards.pop(response)
         Game.play_round(self, playcard, Player)
