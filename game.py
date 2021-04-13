@@ -41,7 +41,6 @@ class Game:
             else:
                 print(f"{bcolors.FAIL}Você perdeu o round!{bcolors.ENDC}\n")
                 player.computer_add_points(self)
-
         self.next_round(player)
 
     def next_round(self, player):
