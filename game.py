@@ -45,18 +45,20 @@ class Game:
 
     def next_round(self, player):
         if self.MAX_ROUNDS <= self.Round:
-            if player.get_points(self) > self.computer_get_points():
-                print(f"\n{bcolors.OKGREEN}Parabéns, você venceu a partida!")
-            elif player.get_points(self) < self.Computer_Points():
-                print(f"\n{bcolors.FAIL}Não foi dessa vez, você perdeu a partida!")
-            else:
-                print(f"\n{bcolors.WARNING}A partida finalizou sem um vencedor, ambos os jogadores empataram!")
+            self.finish_game(player)
         else:
             self.Round += 1
             player.play_card(self)
 
-    def finish_game(self):
-        pass
+    def finish_game(self, player):
+        pp = player.get_points(self)
+        cp = self.computer_get_points()
+        if pp > cp:
+            print(f"\n{bcolors.OKGREEN}Parabéns, você venceu a partida!")
+        elif pp < cp:
+            print(f"\n{bcolors.FAIL}Não foi dessa vez, você perdeu a partida!")
+        else:
+            print(f"\n{bcolors.WARNING}A partida finalizou sem um vencedor, ambos os jogadores empataram!")
 
     def game_getwinner(self, card1, card2):
         if card1 == 'Pedra':
@@ -79,7 +81,7 @@ class Game:
         self.Computer_Points += 1
 
     def computer_get_points(self):
-        return self.Computer_Points
+        return int(self.Computer_Points)
 
 
 class Player(Game):
@@ -137,4 +139,5 @@ class Player(Game):
         self.points += 1
 
     def get_points(self):
-        return self.points
+        return int(self.points)
+
