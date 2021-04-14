@@ -14,6 +14,7 @@ class Game:
     MAX_ROUNDS = 3
     MAX_CARDS = 3
     RANDOM_CARDS = True
+    ONLY_ONE_ROUND = True
     Computer_Points = 0
     Round = 1
 
@@ -36,11 +37,19 @@ class Game:
             print(f"{bcolors.WARNING}Round empatado!{bcolors.ENDC}")
         else:
             if self.game_getwinner(card, computerCardPicked):
-                print(f"{bcolors.OKGREEN}Você ganhou o round!{bcolors.ENDC}")
-                player.add_points(self)
+                if self.ONLY_ONE_ROUND:
+                    player.add_points(self)
+                    self.finish_game(player)
+                else:
+                    print(f"{bcolors.OKGREEN}Você ganhou o round!{bcolors.ENDC}")
+                    player.add_points(self)
             else:
-                print(f"{bcolors.FAIL}Você perdeu o round!{bcolors.ENDC}\n")
-                player.computer_add_points(self)
+                if self.ONLY_ONE_ROUND:
+                    player.computer_add_points(self)
+                    self.finish_game(player)
+                else:
+                    print(f"{bcolors.FAIL}Você perdeu o round!{bcolors.ENDC}\n")
+                    player.computer_add_points(self)
         self.next_round(player)
 
     def next_round(self, player):
@@ -65,6 +74,7 @@ class Game:
             print(f"\n{bcolors.FAIL}Não foi dessa vez, você perdeu a partida!")
         else:
             print(f"\n{bcolors.WARNING}A partida finalizou sem um vencedor, ambos os jogadores empataram!")
+        quit()
 
     def game_getwinner(self, card1, card2):
         if card1 == 'Pedra':
