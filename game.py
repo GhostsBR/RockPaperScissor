@@ -11,10 +11,12 @@ class bcolors:
     UNDERLINE = '\033[4m'
 
 class Game:
-    MAX_ROUNDS = 3
-    MAX_CARDS = 3
-    RANDOM_CARDS = True
-    ONLY_ONE_ROUND = True
+    #MODOS DE JOGO
+    MAX_ROUNDS = 3 #Numero máximo de rodadas.
+    MAX_CARDS = 3 #Numero de cartas recebidas
+    RANDOM_CARDS = True #Cartas aleatórias? (True = Sim ou False = Não)
+    ONLY_ONE_ROUND = True #Decidir o jogo em uma vitoria? (True = Sim ou False = Não)
+
     Computer_Points = 0
     Round = 1
 
