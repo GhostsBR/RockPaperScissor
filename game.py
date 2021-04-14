@@ -23,6 +23,15 @@ class Game:
         print(f"{bcolors.OKGREEN}Jogo iniciado!{bcolors.ENDC}\n")
         player.play_card()
 
+    def restart_game(self, player):
+        self.Computer_Points = 0
+        self.Round = 1
+        self.player = player
+        player.points = 0
+        player.cards = []
+        print(f"{bcolors.OKGREEN}Jogo iniciado!{bcolors.ENDC}\n")
+        player.play_card(self)
+
     def play_round(self, card, player):
         computerCard = random.randint(0, 2)
         computerCardPicked = 'NONE'
@@ -69,12 +78,22 @@ class Game:
         pp = player.get_points(self)
         cp = self.computer_get_points()
         if pp > cp:
-            print(f"\n{bcolors.OKGREEN}Parabéns, você venceu a partida!")
+            print(f"\n{bcolors.OKGREEN}Parabéns, você venceu a partida!{bcolors.ENDC}")
         elif pp < cp:
-            print(f"\n{bcolors.FAIL}Não foi dessa vez, você perdeu a partida!")
+            print(f"\n{bcolors.FAIL}Não foi dessa vez, você perdeu a partida!{bcolors.ENDC}")
         else:
-            print(f"\n{bcolors.WARNING}A partida finalizou sem um vencedor, ambos os jogadores empataram!")
-        quit()
+            print(f"\n{bcolors.WARNING}A partida finalizou sem um vencedor, ambos os jogadores empataram!{bcolors.ENDC}")
+        self.play_again(player)
+
+    def play_again(self, player):
+        response = input(f"\n{bcolors.OKCYAN}Jogar novamente? (Sim/Não){bcolors.ENDC}\n")
+        if response.lower() == "sim" or response.lower() == "sin" or response.lower() == "si" or response.lower() == "s" or response.lower() == "y" or response.lower() == "yes":
+            self.restart_game(player)
+        elif response.lower() == "não" or response.lower() == "nao" or response.lower() == "na" or response.lower() == "n" or response.lower() == "no" :
+            quit()
+        else:
+            print(f"{bcolors.WARNING}Resposta inválida! Responda com SIM ou NÃO.{bcolors.ENDC}")
+            self.play_again(player)
 
     def game_getwinner(self, card1, card2):
         if card1 == 'Pedra':
